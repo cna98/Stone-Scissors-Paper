@@ -1,0 +1,100 @@
+import java.util.*;
+
+public class GameStone {
+
+	 enum gameEnum {
+		Stone,Paper,Scissor
+	}
+	 
+	public static void main(String[]args)
+	{
+		int numberPlayerWin = 0 , numberComputerWin =0 ,numEqual = 0 , numberRound = 0  , randomNumber;
+		boolean gameOver = false , validInput = false;
+		Scanner input = new Scanner(System.in);
+		char select;
+		gameEnum playerSign = gameEnum.Scissor , computerSign;
+		Random random = new Random();
+		
+		System.out.println("Let s start  Stone , Paper , Scissor ....");
+		
+		while(!gameOver)
+		{
+			System.out.println("Press  s  for stone , p  for paper  , g  for scissor  ,  ( q  for quit ) :  ");
+			 
+			//playerSign
+			 do
+			 {
+				 select = input.next().toLowerCase().charAt(0);
+				 validInput = true;
+				 if(select == 's')
+					 playerSign = gameEnum.Stone;
+				 else if(select == 'p')
+					 playerSign = gameEnum.Paper;
+				 else if(select == 'g')
+					 playerSign = gameEnum.Scissor;
+				 else if(select == 'q')
+					 gameOver = true;
+				 else
+				 {
+					 System.out.println("Enter again!");
+					 validInput = false;
+				 }
+					 
+			 }while(!validInput);
+			 
+			 //ComputerSign
+			 if(!gameOver)
+			 {
+				 randomNumber = random.nextInt(3); //random int between 0 to 3
+				 if(randomNumber == 0)
+				 {
+					 computerSign = gameEnum.Stone;
+					 System.out.println("My sign is Stone ...");
+				 }
+				 else if(randomNumber == 1)
+				 {
+					 computerSign = gameEnum.Paper;
+					 System.out.println("My sign is Paper ...");
+				 }
+				 else 
+				 {
+					 computerSign = gameEnum.Scissor;
+					 System.out.println("My sign is Scissor ...");
+				 }
+				 
+				 if(playerSign == computerSign)
+				 {
+					 System.out.println("Equal !");
+					 numEqual++;
+				 }
+				 else if(playerSign == gameEnum.Stone  && computerSign == gameEnum.Scissor)
+				 {
+					 System.out.println("You win !");
+					 numberPlayerWin++;
+				 }
+				 else if(playerSign == gameEnum.Paper && computerSign == gameEnum.Stone)
+				 {
+					 System.out.println("You win !");
+					 numberPlayerWin++;
+				 }
+				 else if(playerSign == gameEnum.Scissor && computerSign == gameEnum.Paper)
+				 {
+					 System.out.println("You win !");
+					 numberPlayerWin++;
+				 }
+				 else 
+				 {
+					System.out.println("Computer wins !");
+					numberComputerWin++;
+				 }
+					 
+				numberRound++;
+				
+				System.out.println(String.format("Number of your wins : %d\t\tNumber of computer s wins : %d" 
+				+"\t\tNumber of equals : %d\t\tRound :  %d"		, numberPlayerWin , numberComputerWin , numEqual , numberRound));
+			 }
+		}
+		System.out.print("End of the game ");
+	
+	}
+}
